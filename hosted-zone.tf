@@ -5,11 +5,6 @@ variable "subdomain_map" {
   }
 }
 
-locals  {
-  domain_name = "quirkee.net"
-  subdomain = lookup(var.subdomain_map, var.env)
-}
-
 data "aws_route53_zone" "this" {
   name = local.domain_name
 }

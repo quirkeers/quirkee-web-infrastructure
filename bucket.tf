@@ -1,16 +1,7 @@
-locals {
-  website_bucket_name = "quirkee-${var.name}-web-static"
-}
-
 # AWS S3 bucket for static hosting
 resource "aws_s3_bucket" "website" {
   bucket = "${local.website_bucket_name}"
   acl = "public-read"
-
-  tags {
-    Name = "Website"
-    Environment = "production"
-  }
 
   cors_rule {
     allowed_headers = ["*"]
