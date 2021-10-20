@@ -1,8 +1,3 @@
-locals  {
-  domain_name = "quirkee.net"
-  subdomain = lookup(var.subdomain_map, var.env)
-}
-
 # AWS Cloudfront for caching
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
