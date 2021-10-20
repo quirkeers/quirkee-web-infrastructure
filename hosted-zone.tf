@@ -1,10 +1,3 @@
-variable "subdomain_map" {
-  default = {
-    "production": "",
-    "development": "dev-"
-  }
-}
-
 data "aws_route53_zone" "this" {
   name = local.domain_name
 }
