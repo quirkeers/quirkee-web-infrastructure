@@ -1,7 +1,7 @@
 # AWS Cloudfront for caching
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "${aws_s3_bucket.website.bucket}.s3.amazonaws.com"
+    domain_name = aws_s3_bucket.website.bucket_regional_domain_name
     origin_id   = "website"
   }
 
@@ -10,7 +10,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   comment             = "Managed by Terraform"
   default_root_object = "index.html"
 
-  aliases = [local.domain_name]
+  aliases = ["${local.subdomain}${var.name}.${local.domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
