@@ -33,3 +33,13 @@ EOF
     error_document = "error.html"
   }
 }
+
+# AWS S3 bucket for www-redirect
+resource "aws_s3_bucket" "website_redirect" {
+  bucket = "www.${local.website_bucket_name}"
+  acl = "public-read"
+
+  website {
+    redirect_all_requests_to = "${local.website_bucket_name}"
+  }
+}
