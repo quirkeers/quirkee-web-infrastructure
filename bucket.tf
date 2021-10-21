@@ -1,7 +1,3 @@
-variable "bucket_name" {
-  default = local.website_bucket_name
-}
-
 resource "aws_s3_bucket" "b" {
   bucket = local.website_bucket_name
   acl    = "public-read"
@@ -13,7 +9,7 @@ resource "aws_s3_bucket" "b" {
         "Effect":"Allow",
           "Principal": "*",
       "Action":["s3:GetObject"],
-      "Resource":["arn:aws:s3:::${var.bucket_name}/*"]
+      "Resource":["arn:aws:s3:::${local.website_bucket_name}/*"]
     }
   ]
 }
