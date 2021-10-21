@@ -1,7 +1,7 @@
 # AWS Cloudfront for caching
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "${aws_s3_bucket.website.bucket}.s3.amazonaws.com"
+    domain_name = "${aws_s3_bucket.website_redirect.bucket}.s3.amazonaws.com"
     origin_id   = "website"
   }
 
