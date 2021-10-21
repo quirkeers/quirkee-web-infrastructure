@@ -1,21 +1,26 @@
-# AWS Cloudfront for caching
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = "${aws_s3_bucket.website_redirect.bucket}.s3.amazonaws.com"
-    origin_id   = "website"
+    domain_name = aws_s3_bucket.b.bucket_regional_domain_name
+    origin_id   = local.s3_origin_id
   }
 
   enabled             = true
   is_ipv6_enabled     = true
-  comment             = "Managed by Terraform"
+  comment             = "Some comment"
   default_root_object = "index.html"
+
+  logging_config {
+    include_cookies = false
+    bucket          = "${var.bucket_name}.s3.amazonaws.com"
+    prefix          = "cloudfront_logs"
+  }
 
   aliases = ["${local.subdomain}${var.name}.${local.domain_name}"]
 
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "website"
+    target_origin_id = local.s3_origin_id
 
     forwarded_values {
       query_string = false
@@ -33,7 +38,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   restrictions {
     geo_restriction {
-      restriction_type = "none"
+      restriction_type = "whitelist"
+      locations        = ["US", "CA", "GB", "DE"]
     }
   }
 
