@@ -21,4 +21,8 @@ EOF
     index_document = "index.html"
     error_document = "index.html"
   }
+
+  provisioner "local-exec" {
+    command = "aws s3 sync ${path.module}/../../../build s3://${aws_s3_bucket.b.id}"
+  }
 }
