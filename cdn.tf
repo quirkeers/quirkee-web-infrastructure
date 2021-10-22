@@ -37,6 +37,13 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     max_ttl                = 86400
   }
 
+  restrictions {
+    geo_restriction {
+      restriction_type = "blacklist"
+      locations        = []
+    }
+  }
+
   viewer_certificate {
     acm_certificate_arn = module.acm.acm_certificate_arn
     ssl_support_method = "sni-only"
