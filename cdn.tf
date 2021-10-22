@@ -2,7 +2,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
     domain_name = aws_s3_bucket.b.website_endpoint
     origin_id   = local.s3_origin_id
-    
+
     custom_origin_config {
       http_port              = "80"
       https_port             = "443"
@@ -39,8 +39,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   restrictions {
     geo_restriction {
-      restriction_type = "whitelist"
-      locations        = ["US", "CA", "GB", "DE"]
+      restriction_type = "none"
     }
   }
 
