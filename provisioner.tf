@@ -1,4 +1,4 @@
-resource "aws_s3_bucket_object" "test" {
+resource "aws_s3_bucket_object" "root" {
   for_each = fileset("${path.module}/../../../build", "**")
   bucket = aws_s3_bucket.b.id
   key = each.value
@@ -6,7 +6,7 @@ resource "aws_s3_bucket_object" "test" {
   etag = filemd5("./${path.module}/../../../build/${each.value}")
 }
 
-resource "aws_s3_bucket_object" "test" {
+resource "aws_s3_bucket_object" "css" {
   for_each = fileset("${path.module}/../../../build/static/css", "**")
   bucket = aws_s3_bucket.b.id
   key = "static/css/${each.value}"
@@ -14,7 +14,7 @@ resource "aws_s3_bucket_object" "test" {
   etag = filemd5("./${path.module}/../../../build/static/css/${each.value}")
 }
 
-resource "aws_s3_bucket_object" "test" {
+resource "aws_s3_bucket_object" "js" {
   for_each = fileset("${path.module}/../../../build/static/js", "**")
   bucket = aws_s3_bucket.b.id
   key = "static/js/${each.value}"
