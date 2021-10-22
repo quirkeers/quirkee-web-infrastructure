@@ -39,8 +39,8 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
   restrictions {
     geo_restriction {
-      restriction_type = "blacklist"
-      locations        = []
+      restriction_type = "whitelist"
+      locations        = ["CN", "HK", "SG", "JP", "TW", "KR"]
     }
   }
 
