@@ -7,8 +7,8 @@ resource "aws_route53_record" "main-a-record" {
   name = "${local.subdomain}${var.name}"
   type = "A"
   alias {
-    name = aws_s3_bucket.b.website_domain
-    zone_id = aws_s3_bucket.b.hosted_zone_id
+    name = aws_cloudfront_distribution.s3_distribution.domain_name
+    zone_id = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
     evaluate_target_health = false
   }
 }

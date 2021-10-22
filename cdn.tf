@@ -1,6 +1,6 @@
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = aws_s3_bucket.b.website_domain
+    domain_name = aws_s3_bucket.b.website_endpoint
     origin_id   = local.s3_origin_id
   }
 
