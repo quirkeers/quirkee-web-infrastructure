@@ -7,7 +7,7 @@ resource "aws_s3_bucket" "b" {
   "Statement":[{
         "Sid":"PublicReadForGetBucketObjects",
         "Effect":"Allow",
-          "Principal": "${aws_cloudfront_distribution.s3_distribution.arn}",
+          "Principal": "*",
       "Action":["s3:GetObject"],
       "Resource":["arn:aws:s3:::${local.website_bucket_name}/*"]
     }
